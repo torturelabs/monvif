@@ -1,0 +1,25 @@
+name: build library
+
+on:
+  push:
+    branches:
+      - '*'
+    tags:
+      - 'v*'
+
+jobs:
+  build-debug:
+    runs-on: ubuntu-latest
+
+    steps:
+      - uses: actions/checkout@v2
+        with:
+          fetch-depth: 0
+
+      - name: Build sources
+        run: |
+          #sudo apt update
+          #sudo apt install -y cmake build-essential
+          cmake -H. -Bbuild -DCMAKE_BUILD_TYPE=Debug
+          cmake --build build
+          cd build ; ctest -VV
