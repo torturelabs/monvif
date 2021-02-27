@@ -13,7 +13,7 @@ if(NOT TARGET TortureLabs::monvif)
   find_package(monvif CONFIG REQUIRED)
 endif()
 
-add_executable(${PROJECT_NAME} tests_source.cpp)
+add_executable(${PROJECT_NAME} internals.cpp)
 target_compile_features(${PROJECT_NAME} PUBLIC cxx_std_17)
 
 target_link_libraries(${PROJECT_NAME} PRIVATE TortureLabs::monvif GTest::GMock

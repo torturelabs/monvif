@@ -13,9 +13,9 @@ if(NOT mxml_FOUND)
   include(External_MiniXML)
 endif()
 
-set(HEADERS example.h)
+set(HEADERS xml.h)
 
-set(SOURCES example.c)
+set(SOURCES xml.c)
 
 add_library(${PROJECT_NAME} ${SOURCES} ${HEADERS})
 target_compile_features(${PROJECT_NAME} PUBLIC c_std_99)
@@ -24,7 +24,7 @@ target_include_directories(
                          $<INSTALL_INTERFACE:include>)
 add_library(TortureLabs::${PROJECT_NAME} ALIAS ${PROJECT_NAME})
 
-target_link_libraries(${PROJECT_NAME} PRIVATE MSweet::mxml)
+target_link_libraries(${PROJECT_NAME} PUBLIC MSweet::mxml)
 
 # install library
 install(
@@ -47,6 +47,6 @@ install(FILES include/monvif.h DESTINATION include)
 include(CMakePackageConfigHelpers)
 write_basic_package_version_file(${PROJECT_NAME}ConfigVersion.cmake
                                  COMPATIBILITY SameMajorVersion)
-install(FILES ${PROJECT_NAME}Config.cmake
+install(FILES ../cmake/${PROJECT_NAME}Config.cmake
               ${CMAKE_CURRENT_BINARY_DIR}/${PROJECT_NAME}ConfigVersion.cmake
         DESTINATION lib/cmake/${PROJECT_NAME})
