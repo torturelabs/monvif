@@ -5,6 +5,14 @@ project(
   VERSION ${VERSION}
   LANGUAGES C)
 
+set(CMAKE_C_FLAGS "${CMAKE_C_FLAGS} -Wall -pedantic")
+
+find_package(mxml)
+if(NOT mxml_FOUND)
+  message(WARNING "\nMiniXML library not found, try to get and build it\n")
+  include(External_MiniXML)
+endif()
+
 set(HEADERS example.h)
 
 set(SOURCES example.c)
@@ -15,6 +23,8 @@ target_include_directories(
   ${PROJECT_NAME} PUBLIC $<BUILD_INTERFACE:${CMAKE_CURRENT_SOURCE_DIR}/include>
                          $<INSTALL_INTERFACE:include>)
 add_library(TortureLabs::${PROJECT_NAME} ALIAS ${PROJECT_NAME})
+
+target_link_libraries(${PROJECT_NAME} PRIVATE MSweet::mxml)
 
 # install library
 install(

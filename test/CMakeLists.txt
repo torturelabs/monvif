@@ -3,8 +3,7 @@ project(monvif_tests)
 
 find_package(GTest MODULE)
 if(NOT GTest_FOUND)
-  message(WARNING "\nGoogle Test library not found, try to get and build it\n"
-                  "Think about using modern package managers like Conan")
+  message(WARNING "\nGoogle Test library not found, try to get and build it\n")
   include(External_GTest)
 endif()
 
