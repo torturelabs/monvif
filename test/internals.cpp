@@ -1,6 +1,9 @@
 #include <gtest/gtest.h>
 #include <mxml.h>
 
+#include "../src/sha1.c"
+#include "../src/soap.c"
+#include "../src/tools.c"
 #include "../src/xml.c"
 
 typedef struct {
@@ -102,6 +105,8 @@ soap_tests_t tt[] = { soap_tests_t{ .input_xml = onvifer_GetStreamUri,
 		      } };
 
 // TODO: add more samples
+// Use https://tomeko.net/online_tools/cpp_text_escape.php?lang=en to convert
+// raw XML
 TEST(Internals, NormalizeSOAP)
 {
 	for (const auto &tcase : tt) {
@@ -112,4 +117,12 @@ TEST(Internals, NormalizeSOAP)
 		ASSERT_STREQ(parsed, tcase.norm_xml);
 		std::free((void *)parsed);
 	}
+}
+
+TEST(Internals, PasswordDigest)
+{
+	char digest[30];
+	PasswordDigest("NjAzNTFmNDJkYjI2NjUyMmM3OGE=",
+		       "2019-08-14T21:30:15.000Z", "", digest);
+	ASSERT_STREQ("qL9AM5nU5ag5vU7m04xqf2Vad3U=", digest);
 }

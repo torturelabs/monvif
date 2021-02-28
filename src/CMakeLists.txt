@@ -13,9 +13,9 @@ if(NOT mxml_FOUND)
   include(External_MiniXML)
 endif()
 
-set(HEADERS xml.h)
+set(HEADERS sha1.h soap.h tools.h xml.h)
 
-set(SOURCES xml.c)
+set(SOURCES sha1.c soap.c tools.c xml.c)
 
 add_library(${PROJECT_NAME} ${SOURCES} ${HEADERS})
 target_compile_features(${PROJECT_NAME} PUBLIC c_std_99)
