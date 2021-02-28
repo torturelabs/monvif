@@ -97,7 +97,7 @@ const char *NVR_GetCapabilities_norm =
 
 soap_tests_t tt[] = { soap_tests_t{ .input_xml = onvifer_GetStreamUri,
 				    .norm_xml = onvifer_GetStreamUri_norm,
-				    .action = "GetStreamUri" },
+				    .action = "GetSystemDateAndTime" },
 		      soap_tests_t{
 			      .input_xml = NVR_GetCapabilities,
 			      .norm_xml = NVR_GetCapabilities_norm,
@@ -111,6 +111,9 @@ TEST(Internals, NormalizeSOAP)
 {
 	for (const auto &tcase : tt) {
 		mxml_node_t *doc = parse_soap(tcase.input_xml);
+		const char *action = soap_action(body_element(doc));
+		ASSERT_STREQ(action, tcase.action);
+
 		const char *parsed = mxmlSaveAllocString(doc, MXML_NO_CALLBACK);
 		mxmlDelete(doc);
 

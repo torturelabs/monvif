@@ -89,3 +89,29 @@ static mxml_node_t *parse_soap(const char *xml)
 
 	return tree;
 }
+
+static mxml_node_t *body_element(mxml_node_t *doc)
+{
+	return mxmlFindElement(doc, doc, "Body", "xmlns",
+			       "http://www.w3.org/2003/05/soap-envelope",
+			       MXML_DESCEND);
+}
+
+static const char *first_child_of(mxml_node_t *tree, mxml_node_t *node)
+{
+	if (!node)
+		return NULL;
+
+	while ((node = mxmlWalkNext(node, tree, MXML_DESCEND)) != NULL) {
+		const char *element = mxmlGetElement(node);
+		if (!element)
+			continue;
+		return element;
+	}
+	return NULL;
+}
+
+static const char *soap_action(mxml_node_t *body)
+{
+	return first_child_of(body, body);
+}
