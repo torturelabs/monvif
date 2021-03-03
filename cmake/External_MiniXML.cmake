@@ -7,4 +7,4 @@ download_project(PROJ                mxml
 
 add_subdirectory(${mxml_SOURCE_DIR} ${mxml_BINARY_DIR})
 
-add_library(MSweet::mxml ALIAS mxml)
+include_directories(${mxml_SOURCE_DIR})
