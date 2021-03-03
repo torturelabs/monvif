@@ -20,6 +20,7 @@ jobs:
         run: |
           #sudo apt update
           #sudo apt install -y cmake build-essential
-          cmake -H. -Bbuild -DCMAKE_BUILD_TYPE=Debug
+          cmake -H. -Bbuild -DCMAKE_BUILD_TYPE=Debug \
+            -DUSE_ASAN=ON -DCMAKE_INSTALL_PREFIX=~/.test
           cmake --build build --target install
           cd build ; ctest -VV

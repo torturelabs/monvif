@@ -52,7 +52,8 @@ if(USE_ASAN)
   set(ENV{ASAN_OPTIONS}
       "strict_string_checks=1:detect_stack_use_after_return=1:check_initialization_order=1:strict_init_order=1:symbolize=1"
   )
-  check_c_compiler_flag(-fsanitize-address-use-after-scope HasUseAfterScope)
+  include(CheckCCompilerFlag)
+  CHECK_C_COMPILER_FLAG(-fsanitize-address-use-after-scope HasUseAfterScope)
   set(ASAN_FLAGS "-fsanitize=address -fno-omit-frame-pointer")
   if(HasUseAfterScope)
     set(ASAN_FLAGS "${ASAN_FLAGS} -fsanitize-address-use-after-scope")
