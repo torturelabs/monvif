@@ -9,6 +9,10 @@ endif()
 
 include(GoogleTest)
 
+if(NOT mxml_FOUND)
+  include_directories(${mxml_SOURCE_DIR})
+endif()
+
 if(NOT TARGET TortureLabs::monvif)
   find_package(monvif CONFIG REQUIRED)
 endif()
